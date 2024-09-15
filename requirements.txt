@@ -2,4 +2,6 @@ flask
 transformers
 Pillow
 gunicorn
-tensorflow
+tensorflow-cpu==2.11
+tf-keras
+flask-cors

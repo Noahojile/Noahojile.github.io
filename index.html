@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+</head>
+<body>
+
+<h1>Plant Disease Detection</h1>
+
+<!-- Upload Image -->
+<input type="file" id="imageUpload" accept="image/*">
+<br><br>
+
+<!-- Predict Button -->
+<button id="predictButton" disabled>Predict Image</button>
+<br><br>
+
+<!-- Display Uploaded Image -->
+<img id="uploadedImage" src="" alt="Uploaded Image" style="display: none; max-width: 300px;">
+<br><br>
+
+<!-- Display Prediction Result -->
+<div id="result"></div>
+
+<script>
+    // Get the image upload input, predict button, and result div
+    const imageUpload = document.getElementById('imageUpload');
+    const predictButton = document.getElementById('predictButton');
+    const uploadedImage = document.getElementById('uploadedImage');
+    const resultDiv = document.getElementById('result');
+
+    let selectedFile = null;
+
+    // Handle image upload
+    imageUpload.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Display uploaded image
+                uploadedImage.src = e.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+            predictButton.disabled = false;  // Enable the predict button
+        }
+    });
+
+    // Handle predict button click
+    predictButton.addEventListener('click', function() {
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            // Send the image to the server for prediction
+            fetch('https://your-app-name.onrender.com/predict', {  // Replace with your actual Render app URL
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction result
+                resultDiv.innerHTML = '<h3>Prediction Result:</h3><p>' + JSON.stringify(data) + '</p>';
+            })
+            .catch(error => {
+                // Handle error
+                resultDiv.innerHTML = '<p style="color:red;">Error: ' + error + '</p>';
+            });
+        }
+    });
+</script>
+
+</body>
+  </html>

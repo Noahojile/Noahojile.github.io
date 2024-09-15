@@ -2,3 +2,4 @@ flask
 transformers
 Pillow
 gunicorn
+tensorflow

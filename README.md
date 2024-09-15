@@ -1,1 +1,0 @@
-# bean_leaf_disease

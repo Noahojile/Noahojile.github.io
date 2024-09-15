@@ -1,5 +1,4 @@
-Flask==2.3.2
-tensorflow==2.13.0
-numpy==1.24.3
-Pillow==9.5.0
-gunicorn==20.1.0
+flask
+transformers
+Pillow
+gunicorn
